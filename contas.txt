@@ -1,2 +1,6 @@
-14526,Rafael Tomaz,4800.0
-14572,Iris Thaina,6300.0
+458935,Rafael Tomaz,2600.0
+147855,Renato Tomaz,3200.0
+153269,Gustavo Tomaz,3000.0
+156329,Vitoria Martinez,2800.0
+632987,Stelia Martinez,4050.0
+569874,Luiz Gomes,3800.0

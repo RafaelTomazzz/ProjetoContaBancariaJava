@@ -7,6 +7,7 @@ import java.io.*;
 import javax.swing.JOptionPane;
 import service.ContaService;
 import model.ContaCorrente;
+import java.util.*;
 
 public class Main {
 
@@ -17,7 +18,17 @@ public class Main {
         ContaService contaService = new ContaService();
         
         ContaCorrente conta = contaService.criarConta();
+        ArrayList<ContaCorrente> contas = contaService.lerContas();
         
+        int n = contas.size();
+        
+        while(n >= 1){
+            ContaCorrente lerconta = contas.get(n - 1);
+            System.out.println(n + " | Numero: " + lerconta.numero + "- Titular: " + lerconta.titular + "- Saldo: " + lerconta.saldo);
+            n--;
+        }
+        
+        /*
         ContaCorrente a_conta = contaService.lerConta();
         conta.ImprimirDados();
         
@@ -34,6 +45,7 @@ public class Main {
         } catch (IOException ex){
             System.out.println("Erro! " + ex.getMessage());
         }
+        */
     }
     
 }

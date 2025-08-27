@@ -6,6 +6,7 @@ package service;
 import model.ContaCorrente;
 import java.io.*;
 import javax.swing.JOptionPane;
+import java.util.*;
 
 public class ContaService {
     public ContaCorrente criarConta(){
@@ -29,23 +30,27 @@ public class ContaService {
         }
     }
     
-    public ContaCorrente lerConta(){
+    public ArrayList<ContaCorrente> lerContas(){
         
         try{
             FileReader fr = new FileReader("contas.txt");
             BufferedReader br = new BufferedReader(fr);
+            Scanner sc = new Scanner(fr);
             
-            String linha = br.readLine();
-            System.out.println(linha);
+            ArrayList<ContaCorrente> contas = new ArrayList<ContaCorrente>();
             
-            String[] partes = linha.split(",");
+            while(sc.hasNextLine()){
+                String linha = sc.nextLine();
+                String[] partes = linha.split(",");
             
-            int numero = Integer.parseInt(partes[0]);
-            double saldo = Double.parseDouble(partes[2]);
+                int numero = Integer.parseInt(partes[0]);
+                double saldo = Double.parseDouble(partes[2]);
            
-            ContaCorrente conta = new ContaCorrente(numero, partes[1], saldo);
+                ContaCorrente conta = new ContaCorrente(numero, partes[1], saldo);
+                contas.add(conta);
+            }
             
-            return conta;
+            return contas;
         } catch (IOException ex){
             System.out.println("Erro! " + ex.getMessage());
             return null;
