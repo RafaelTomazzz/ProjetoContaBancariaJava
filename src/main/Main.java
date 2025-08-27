@@ -16,21 +16,9 @@ public class Main {
     public static void main(String[] args) {
         ContaService contaService = new ContaService();
         
-        try {
-            FileWriter fw = new FileWriter("conta.txt");
-            BufferedWriter bw = new BufferedWriter(fw);
-            
-            int numero = Integer.parseInt(JOptionPane.showInputDialog("Digite o número da conta"));
-            String titular = JOptionPane.showInputDialog("Digite o titular");
-            double saldo = Double.parseDouble(JOptionPane.showInputDialog("Digite o saldo"));
-            
-            bw.write(numero + "," + titular + "," + saldo);
-            bw.close();
-        } catch (IOException ex){
-            System.out.println("Erro!");
-        }
+        ContaCorrente conta = contaService.criarConta();
         
-        ContaCorrente conta = contaService.lerConta();
+        ContaCorrente a_conta = contaService.lerConta();
         conta.ImprimirDados();
         
         double saque = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor de saque"));
