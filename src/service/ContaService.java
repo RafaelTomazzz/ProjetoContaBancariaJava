@@ -56,4 +56,20 @@ public class ContaService {
             return null;
         }
     }
+    
+    public ContaCorrente selecionarConta(int numeroConta){
+        ArrayList<ContaCorrente> contas = this.lerContas();
+        ContaCorrente contaSelecionada = contas.get(0);
+        int n = contas.size();    
+        
+        for(int i = 0; i < n; i++){
+            ContaCorrente conta = contas.get(i);
+            
+            if(conta.getNumero() == numeroConta){
+                contaSelecionada = conta;
+            }
+        }
+        
+        return contaSelecionada;
+    }
 }

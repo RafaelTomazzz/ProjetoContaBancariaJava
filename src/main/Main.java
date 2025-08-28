@@ -17,17 +17,41 @@ public class Main {
     public static void main(String[] args) {
         ContaService contaService = new ContaService();
         
-        ContaCorrente conta = contaService.criarConta();
+        //ContaCorrente conta = contaService.criarConta();
         ArrayList<ContaCorrente> contas = contaService.lerContas();
         
         int n = contas.size();
         
         while(n >= 1){
             ContaCorrente lerconta = contas.get(n - 1);
-            System.out.println(n + " | Numero: " + lerconta.numero + "- Titular: " + lerconta.titular + "- Saldo: " + lerconta.saldo);
+            System.out.println(n + " | Numero: " + lerconta.numero + " - Titular: " + lerconta.titular + " - Saldo: " + lerconta.saldo);
             n--;
         }
         
+        int numero = Integer.parseInt(JOptionPane.showInputDialog("Digite o número conta que deseja selecionar"));
+        ContaCorrente contaSelecionada = contaService.selecionarConta(numero);
+        
+        JOptionPane.showMessageDialog(null, "Conta selecionada\n\n" + "Numero: " + contaSelecionada.getNumero() + " - Titular: " + contaSelecionada.getTitular() + " - Saldo: " + contaSelecionada.getSaldo());
+        
+        int opcao = Integer.parseInt(JOptionPane.showInputDialog("Oque deseja realizar? 1 - Saque  2 - Depósito"));
+        
+        switch(opcao){
+            case 1: 
+                double valorSaque = Double.parseDouble(JOptionPane.showInputDialog("Informe a quantia do saque"));
+                contaSelecionada.Sacar(valorSaque);
+                
+                JOptionPane.showMessageDialog(null, "Saque realizado com sucesso! Saldo atual - " + contaSelecionada.getSaldo());
+                break;
+            case 2:    
+                try{
+                    double valorDeposito = Double.parseDouble(JOptionPane.showInputDialog("Informe a quantia do saque"));
+                    contaSelecionada.Depositar(valorDeposito);
+                    
+                    JOptionPane.showMessageDialog(null, "Deposito realizado com sucesso! Saldo atual - " + contaSelecionada.getSaldo());
+                } catch(NumberFormatException ex){
+                    System.out.println("Erro!Você entrou com um valor não numérico." + ex.getMessage());
+                }
+        }
         /*
         ContaCorrente a_conta = contaService.lerConta();
         conta.ImprimirDados();
