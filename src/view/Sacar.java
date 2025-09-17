@@ -18,6 +18,7 @@ public class Sacar extends javax.swing.JFrame {
     public Sacar(String numero) {
         initComponents();
         MostrarSaldo(numero);
+        MostrarNumero(numero);
     }
 
     /**
@@ -29,10 +30,14 @@ public class Sacar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         LabelSaldo = new javax.swing.JLabel();
         InputSaque = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        LabelNumero = new javax.swing.JLabel();
+
+        jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,23 +45,22 @@ public class Sacar extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Escolha o valor de saque");
 
-        LabelSaldo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        InputSaque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InputSaqueActionPerformed(evt);
-            }
-        });
+        LabelSaldo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton1.setText("REALIZAR SAQUE");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RealizarSaque(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
@@ -65,13 +69,19 @@ public class Sacar extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(InputSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(73, 73, 73))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(171, 171, 171)
+                .addComponent(LabelNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addContainerGap()
+                .addComponent(LabelNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(InputSaque, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(LabelSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -84,10 +94,17 @@ public class Sacar extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void InputSaqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputSaqueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_InputSaqueActionPerformed
+    private void RealizarSaque(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RealizarSaque
+        double valor = Double.parseDouble(InputSaque.getText());
+        int numero = Integer.parseInt(LabelNumero.getText());
+        
+        contaService.AlterarSaldo(valor, numero);
+        
+        JOptionPane.showMessageDialog(null, "Saque feito com sucesso! Retire o dinheiro na máquina");
+        this.dispose();
+    }//GEN-LAST:event_RealizarSaque
 
+    
     /**
      * @param args the command line arguments
      */
@@ -131,11 +148,17 @@ public class Sacar extends javax.swing.JFrame {
         LabelSaldo.setText("Saldo atual: " + conta.getSaldo());
         
     }
+    
+    private void MostrarNumero(String numero){
+        LabelNumero.setText(numero);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField InputSaque;
+    private javax.swing.JLabel LabelNumero;
     private javax.swing.JLabel LabelSaldo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
