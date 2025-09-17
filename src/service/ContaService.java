@@ -78,8 +78,6 @@ public class ContaService {
         try{
             FileReader fr = new FileReader("contas.txt");
             BufferedReader br = new BufferedReader(fr);
-            FileWriter fw = new FileWriter("contas.txt");
-            BufferedWriter bw = new BufferedWriter(fw);
             List<String> linhas = new ArrayList<>();
             String linha;
             
@@ -89,6 +87,7 @@ public class ContaService {
                 if(Integer.parseInt(partes[0]) == numero){
                     double saldoAtual = Double.parseDouble(partes[2]);
                     if(saque > saldoAtual){
+                        br.close();
                         throw new SaldoInsuficienteException("O valor solicitado é maior que o saldo");
                     }
                     
@@ -101,6 +100,10 @@ public class ContaService {
                 
                 linhas.add(linha);
             }
+            br.close();
+            
+            FileWriter fw = new FileWriter("contas.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
             
             for(String l : linhas){
                 bw.write(l);
