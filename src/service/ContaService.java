@@ -72,4 +72,26 @@ public class ContaService {
         
         return contaSelecionada;
     }
+    
+    public void AlterarSaldo(int valor, int numero){
+        try{
+            FileReader fr = new FileReader("contas.txt");
+            BufferedReader br = new BufferedReader(fr);
+            FileWriter fw = new FileWriter("contas.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            Scanner sc = new Scanner(fr);
+            
+            while(sc.hasNextLine()){
+                String linha = sc.nextLine();
+                String[] partes = linha.split(",");
+                
+                if(Integer.parseInt(partes[0]) == numero){
+                    
+                }
+                
+            }
+        } catch(IOException ex){
+            System.out.println("Erro! " + ex.getMessage());
+        }
+    }
 }
