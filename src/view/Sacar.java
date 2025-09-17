@@ -95,13 +95,22 @@ public class Sacar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RealizarSaque(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RealizarSaque
-        double valor = Double.parseDouble(InputSaque.getText());
-        int numero = Integer.parseInt(LabelNumero.getText());
+        try{
+            double valor = Double.parseDouble(InputSaque.getText());
+            int numero = Integer.parseInt(LabelNumero.getText());
         
-        contaService.AlterarSaldo(valor, numero);
+            contaService.AlterarSaldo(valor, numero);
         
-        JOptionPane.showMessageDialog(null, "Saque feito com sucesso! Retire o dinheiro na máquina");
-        this.dispose();
+            JOptionPane.showMessageDialog(null, "Saque feito com sucesso! Retire o dinheiro na máquina");
+        
+            TelaPrincipal telaprincipal = new TelaPrincipal();
+            telaprincipal.setVisible(true);
+        
+            this.dispose();
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro! " + ex.getMessage());
+        }
+        
     }//GEN-LAST:event_RealizarSaque
 
     

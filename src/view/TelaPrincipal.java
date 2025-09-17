@@ -11,11 +11,11 @@ import javax.swing.JOptionPane;
  *
  * @author CG3033791
  */
-public class Interface extends javax.swing.JFrame {
+public class TelaPrincipal extends javax.swing.JFrame {
 
     ContaService contaService = new ContaService();
     
-    public Interface() {
+    public TelaPrincipal() {
         initComponents();
         ListarContas();
     }
@@ -169,8 +169,13 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_SelecionarConta
 
     private void ShowDepositar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowDepositar
-        Depositar depositar = new Depositar();
+        String texto = LabelContaSelecionada.getText();
+        String[] txt = texto.split("Numero: ");
+        String[] numero = txt[1].split(" ");
+        
+        Depositar depositar = new Depositar(numero[0]);
         depositar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ShowDepositar
 
     private void ShowSacar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowSacar
@@ -178,10 +183,9 @@ public class Interface extends javax.swing.JFrame {
         String[] txt = texto.split("Numero: ");
         String[] numero = txt[1].split(" ");
         
-        JOptionPane.showMessageDialog(null, numero[0]);
-        
         Sacar sacar = new Sacar(numero[0]);
         sacar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ShowSacar
 
     private void ListarContas(){
@@ -214,20 +218,21 @@ public class Interface extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Interface().setVisible(true);
+                new TelaPrincipal().setVisible(true);
             }
         });
     }
