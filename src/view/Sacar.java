@@ -101,6 +101,8 @@ public class Sacar extends javax.swing.JFrame {
         contaService.AlterarSaldo(valor, numero);
         
         JOptionPane.showMessageDialog(null, "Saque feito com sucesso! Retire o dinheiro na máquina");
+        TelaPrincinal tela = new TelaPrincinal();
+        tela.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_RealizarSaque
 

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-
+import strategy.TarifaStrategy;
 /**
  *
  * @author Administrador
@@ -12,6 +12,7 @@ public abstract class Conta {
     public int numero;
     public String titular;
     public double saldo;
+    public TarifaStrategy tarifa;
     
     public Conta(int numero, String titular, double saldo){
         this.numero = numero;
@@ -19,6 +20,10 @@ public abstract class Conta {
         this.saldo = saldo;
     }
 
+    public double calcularTaxa() {
+        return tarifa.calcularTarifa(this.saldo);
+    }
+    
     public int getNumero() {
         return numero;
     }

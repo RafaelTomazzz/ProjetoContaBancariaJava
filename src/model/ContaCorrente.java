@@ -4,6 +4,7 @@
  */
 package model;
 import exception.SaldoInsuficienteException;
+import strategy.TarifaStrategy;
 
 public class ContaCorrente extends Conta{
     

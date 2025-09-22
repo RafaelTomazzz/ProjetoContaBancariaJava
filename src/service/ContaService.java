@@ -118,4 +118,44 @@ public class ContaService {
             System.out.println("Erro! " + ex.getMessage());
         }
     }
+    
+    public void AumentarSaldo(double deposito, int numero){
+        try{
+            FileReader fr = new FileReader("contas.txt");
+            BufferedReader br = new BufferedReader(fr);
+            List<String> linhas = new ArrayList<>();
+            String linha;
+            
+            while((linha = br.readLine()) != null){
+                String[] partes = linha.split(",");
+                
+                if(Integer.parseInt(partes[0]) == numero){
+                    double saldoAtual = Double.parseDouble(partes[2]);
+                    
+                    saldoAtual += deposito;
+                    String saldo = Double.toString(saldoAtual);
+                    partes[2] = saldo;
+                    
+                    linha = String.join(",", partes);
+                }
+                
+                linhas.add(linha);
+            }
+            br.close();
+            
+            FileWriter fw = new FileWriter("contas.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            for(String l : linhas){
+                bw.write(l);
+                bw.newLine();
+            }
+            
+            bw.close();
+            
+        } catch(IOException ex){
+            System.out.println("Erro! " + ex.getMessage());
+        }
+    }
+    
 }
