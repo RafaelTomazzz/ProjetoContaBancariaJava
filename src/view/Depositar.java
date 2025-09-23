@@ -6,6 +6,7 @@ package view;
 import service.ContaService;
 import model.ContaCorrente;
 import javax.swing.JOptionPane;
+import dao.ContaDAO;
 
 /**
  *
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 public class Depositar extends javax.swing.JFrame {
 
     ContaService contaService = new ContaService();
+    ContaDAO contaDAO = new ContaDAO();
     
     public Depositar(String numero) {
         initComponents();
@@ -98,10 +100,13 @@ public class Depositar extends javax.swing.JFrame {
         double valor = Double.parseDouble(InputDeposito.getText());
         int numero = Integer.parseInt(LabelNumero.getText());
         
-        contaService.AumentarSaldo(valor, numero);
+        String[] partes = LabelSaldo.getText().split(": ");
+        
+        double saldo = Double.parseDouble(partes[1]) + valor;
+        contaDAO.atualizarSaldo(numero, saldo);
         
         JOptionPane.showMessageDialog(null, "Deposito realizado com sucesso! Valor adicionado ao saldo.");
-        TelaPrincinal tela = new TelaPrincinal();
+        TelaPrincipal tela = new TelaPrincipal();
         tela.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_RealizarDeposito
@@ -152,7 +157,7 @@ public class Depositar extends javax.swing.JFrame {
     private void MostrarSaldo(String numero){
         int num = Integer.parseInt(numero);
         System.out.println(num);
-        ContaCorrente conta = contaService.selecionarConta(num);
+        ContaCorrente conta = contaDAO.buscarPorNumero(num);
         
         LabelSaldo.setText("Saldo atual: " + conta.getSaldo());
         

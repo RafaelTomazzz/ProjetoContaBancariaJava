@@ -9,15 +9,17 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
+import dao.ContaDAO;
 /**
  *
  * @author CG3033791
  */
-public class TelaPrincinal extends javax.swing.JFrame {
+public class TelaPrincipal extends javax.swing.JFrame {
 
     ContaService contaService = new ContaService();
+    ContaDAO contaDAO = new ContaDAO();
     
-    public TelaPrincinal() {
+    public TelaPrincipal() {
         initComponents();
         ListarContas();
         MostrarContas();
@@ -38,6 +40,7 @@ public class TelaPrincinal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         InputTexto = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         LabelContaSelecionada = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -47,6 +50,8 @@ public class TelaPrincinal extends javax.swing.JFrame {
         ate5000 = new javax.swing.JRadioButton();
         ate10000 = new javax.swing.JRadioButton();
         acima10000 = new javax.swing.JRadioButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,6 +88,14 @@ public class TelaPrincinal extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SelecionarConta(evt);
+            }
+        });
+
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton3.setText("Excluir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirConta(evt);
             }
         });
 
@@ -135,6 +148,22 @@ public class TelaPrincinal extends javax.swing.JFrame {
         acima10000.setText("Acima de R$10000");
         acima10000.setActionCommand("acima10000");
 
+        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton5.setText("INSERIR CONTA");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowInserirConta(evt);
+            }
+        });
+
+        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton6.setText("TRANSFERÊNCIA");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowTransferencia(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,15 +182,12 @@ public class TelaPrincinal extends javax.swing.JFrame {
                         .addComponent(InputTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(74, 74, 74)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(FilterButton)
@@ -170,7 +196,16 @@ public class TelaPrincinal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ate10000)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(acima10000)))
+                        .addComponent(acima10000))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -191,14 +226,19 @@ public class TelaPrincinal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(InputTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LabelContaSelecionada, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -208,7 +248,7 @@ public class TelaPrincinal extends javax.swing.JFrame {
     private void SelecionarConta(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelecionarConta
         int numero = Integer.parseInt(InputTexto.getText());
         
-        ContaCorrente conta = contaService.selecionarConta(numero);
+        ContaCorrente conta = contaDAO.buscarPorNumero(numero);
         LabelContaSelecionada.setText("Titular: " + conta.getTitular() + " - Numero: " + conta.getNumero() + " - Saldo: " + conta.getSaldo());
     }//GEN-LAST:event_SelecionarConta
 
@@ -237,7 +277,7 @@ public class TelaPrincinal extends javax.swing.JFrame {
     }//GEN-LAST:event_ate5000ActionPerformed
 
     private void Filtrar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtrar
-        ArrayList<ContaCorrente> contas = contaService.lerContas();
+        List<ContaCorrente> contas = contaDAO.ListarContas();
         List<ContaCorrente> lista = new ArrayList<ContaCorrente>();
         String filtro = FiltroButtonGroup.getSelection().getActionCommand();
         StringBuilder texto = new StringBuilder("<html>");
@@ -272,8 +312,35 @@ public class TelaPrincinal extends javax.swing.JFrame {
         LabelContas.setText(texto.toString());
     }//GEN-LAST:event_Filtrar
 
+    private void ExcluirConta(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirConta
+        int numero = Integer.parseInt(InputTexto.getText());
+        boolean res = contaDAO.ExcluirConta(numero);
+        
+        if(res){
+            JOptionPane.showMessageDialog(null, "Conta excluida com sucesso!");
+        } else{
+            JOptionPane.showMessageDialog(null, "Erro!!!");
+        }
+        
+        TelaPrincipal telaPrincipal = new TelaPrincipal();
+        telaPrincipal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ExcluirConta
+
+    private void ShowInserirConta(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowInserirConta
+        InserirConta inserirConta = new InserirConta();
+        inserirConta.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ShowInserirConta
+
+    private void ShowTransferencia(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowTransferencia
+        Transferencia transferencia = new Transferencia();
+        transferencia.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ShowTransferencia
+
     private void ListarContas(){
-        ArrayList<ContaCorrente> contas = contaService.lerContas();
+        List<ContaCorrente> contas = contaDAO.ListarContas();
         
         StringBuilder texto = new StringBuilder("<html>");
         
@@ -287,7 +354,7 @@ public class TelaPrincinal extends javax.swing.JFrame {
     }
     
     private void MostrarContas(){
-        ArrayList<ContaCorrente> contas = contaService.lerContas();
+        List<ContaCorrente> contas = contaDAO.ListarContas();
         Predicate<ContaCorrente> MarMaior5000 = 
                 conta -> conta.saldo > 5000 && conta.saldo % 2 == 0;
         
@@ -322,21 +389,23 @@ public class TelaPrincinal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincinal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincinal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincinal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincinal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaPrincinal().setVisible(true);
+                new TelaPrincipal().setVisible(true);
             }
         });
     }
@@ -352,7 +421,10 @@ public class TelaPrincinal extends javax.swing.JFrame {
     private javax.swing.JRadioButton ate5000;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
